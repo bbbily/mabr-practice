@@ -16692,7 +16692,7 @@ module.exports = (function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(16);
-module.exports = __webpack_require__(56);
+module.exports = __webpack_require__(58);
 
 
 /***/ }),
@@ -16771,10 +16771,10 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.router = __WEBPACK_IMPORTED_MODULE_3
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vue_axios___default.a, axios);
 // Vue.use(VueResource);
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_1_vue_router__["a" /* default */]);
-__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__webpack_require__(49), {
-  auth: __webpack_require__(53),
-  http: __webpack_require__(54),
-  router: __webpack_require__(55)
+__WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__webpack_require__(51), {
+  auth: __webpack_require__(55),
+  http: __webpack_require__(56),
+  router: __webpack_require__(57)
 });
 
 // Vue.http.options.root = 'https://api-demo.websanova.com/api/v1';
@@ -50690,9 +50690,9 @@ module.exports = Component.exports
 var disposed = false
 var normalizeComponent = __webpack_require__(3)
 /* script */
-var __vue_script__ = __webpack_require__(61)
+var __vue_script__ = __webpack_require__(49)
 /* template */
-var __vue_template__ = __webpack_require__(62)
+var __vue_template__ = __webpack_require__(50)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -50732,9 +50732,327 @@ module.exports = Component.exports
 
 /***/ }),
 /* 49 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      people: [],
+      pagination: {}
+    };
+  },
+
+
+  computed: {
+    loading: function loading() {
+      return this.$store.state.loading;
+    }
+  },
+
+  watch: {
+    '$route.query.page': function $routeQueryPage(page) {
+      this.getPeople(page);
+    }
+  },
+
+  methods: {
+    getPeople: function getPeople(page) {
+      var _this = this;
+
+      this.$store.commit('setLoading', true);
+
+      this.$http.get('/people', {
+        params: {
+          page: page
+        }
+      }).then(function (_ref) {
+        var data = _ref.data;
+
+        _this.$set(_this, 'people', data.data);
+        _this.pagination = data;
+      }).catch(function (err) {
+        return console.error(err);
+      }).then(function () {
+        return _this.$store.commit('setLoading', false);
+      });
+    },
+    goToPage: function goToPage(page) {
+      this.$router.push({ name: 'people', query: { page: page } });
+    }
+  },
+  created: function created() {
+    this.getPeople();
+  },
+  mounted: function mounted() {}
+});
+
+/***/ }),
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Auth = __webpack_require__(50)();
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("section", { staticClass: "people" }, [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("section", { staticClass: "list" }, [
+      _c(
+        "div",
+        { staticClass: "row column" },
+        [
+          _vm.$auth.check("admin")
+            ? _c("div", { staticClass: "small-12 text-right" }, [
+                _c("section", { staticClass: "padded" }, [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "small teal dropdown actions button",
+                      attrs: { "data-toggle": "people-actions" }
+                    },
+                    [
+                      _vm._v("\n            Actions\n            "),
+                      _c("zf-dropdown", { attrs: { id: "people-actions" } }, [
+                        _c(
+                          "ul",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                attrs: { tag: "li", to: { name: "addPerson" } }
+                              },
+                              [
+                                _vm._v(
+                                  "\n                  Add\n                  "
+                                ),
+                                _c("i", { staticClass: "oa-plus" })
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ])
+                    ],
+                    1
+                  )
+                ])
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", { staticClass: "panel" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            !_vm.loading && _vm.people.length
+              ? _c(
+                  "table",
+                  { staticClass: "table table--list unstriped links" },
+                  [
+                    _vm._m(2),
+                    _vm._v(" "),
+                    _c(
+                      "tbody",
+                      _vm._l(_vm.people, function(person) {
+                        return _c(
+                          "router-link",
+                          {
+                            key: person.id,
+                            attrs: {
+                              tag: "tr",
+                              to: {
+                                name: "viewPerson",
+                                params: { id: person.id }
+                              }
+                            }
+                          },
+                          [
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(person.full_name)
+                              }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: { textContent: _vm._s(person.email) }
+                            }),
+                            _vm._v(" "),
+                            _c("td", {
+                              domProps: {
+                                textContent: _vm._s(person.direct_phone)
+                              }
+                            })
+                          ]
+                        )
+                      })
+                    )
+                  ]
+                )
+              : _vm._e(),
+            _vm._v(" "),
+            !_vm.loading && !_vm.people.length
+              ? _c("section", { staticClass: "padded" }, [_vm._m(3)])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _c("zf-pagination", {
+            attrs: { data: _vm.pagination },
+            on: { paginate: _vm.goToPage }
+          })
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("header", [
+      _c("div", { staticClass: "row column" }, [
+        _c("h5", [_vm._v("People")]),
+        _vm._v(" "),
+        _c("div", { staticClass: "main" }, [
+          _c("h1", [_vm._v("View All People")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "panel--header" }, [
+      _c("div", { staticClass: "title" }, [
+        _c("div", { staticClass: "heading" }, [
+          _c("i", { staticClass: "oa-profile" }),
+          _vm._v(" "),
+          _c("p", [_vm._v("People")])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("\n                Name\n              ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("\n                Email\n              ")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("\n                Phone\n              ")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "column row text-center" }, [
+      _c("h5", { staticClass: "text-white" }, [_vm._v("Nothing here...")])
+    ])
+  }
+]
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1b94500c", module.exports)
+  }
+}
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Auth = __webpack_require__(52)();
 
 module.exports = (function () {
 
@@ -50775,11 +51093,11 @@ module.exports = (function () {
 })();
 
 /***/ }),
-/* 50 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var __utils  = __webpack_require__(51),
-    __token  = __webpack_require__(52),
+var __utils  = __webpack_require__(53),
+    __token  = __webpack_require__(54),
     __cookie = __webpack_require__(14)
 
 module.exports = function () {
@@ -51489,7 +51807,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 51 */
+/* 53 */
 /***/ (function(module, exports) {
 
 module.exports = (function (){
@@ -51571,7 +51889,7 @@ module.exports = (function (){
 
 
 /***/ }),
-/* 52 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __cookie = __webpack_require__(14);
@@ -51651,7 +51969,7 @@ module.exports = (function () {
 })();
 
 /***/ }),
-/* 53 */
+/* 55 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -51673,7 +51991,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 54 */
+/* 56 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -51739,7 +52057,7 @@ module.exports = {
 
 
 /***/ }),
-/* 55 */
+/* 57 */
 /***/ (function(module, exports) {
 
 module.exports = {
@@ -51807,332 +52125,10 @@ module.exports = {
 };
 
 /***/ }),
-/* 56 */
+/* 58 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  data: function data() {
-    return {
-      people: [],
-      pagination: {}
-    };
-  },
-
-
-  computed: {
-    loading: function loading() {
-      return this.$store.state.loading;
-    }
-  },
-
-  watch: {
-    '$route.query.page': function $routeQueryPage(page) {
-      this.getPeople(page);
-    }
-  },
-
-  methods: {
-    getPeople: function getPeople(page) {
-      var _this = this;
-
-      this.$store.commit('setLoading', true);
-
-      this.$http.get('/people', {
-        params: {
-          page: page
-        }
-      }).then(function (_ref) {
-        var data = _ref.data;
-
-        _this.$set(_this, 'people', data.data);
-        _this.pagination = data;
-      }).catch(function (err) {
-        return console.error(err);
-      }).then(function () {
-        return _this.$store.commit('setLoading', false);
-      });
-    },
-    goToPage: function goToPage(page) {
-      this.$router.push({ name: 'people', query: { page: page } });
-    }
-  },
-  created: function created() {
-    this.getPeople();
-  },
-  mounted: function mounted() {}
-});
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c("section", { staticClass: "people" }, [
-    _vm._m(0),
-    _vm._v(" "),
-    _c("section", { staticClass: "list" }, [
-      _c(
-        "div",
-        { staticClass: "row column" },
-        [
-          _vm.$auth.check("admin")
-            ? _c("div", { staticClass: "small-12 text-right" }, [
-                _c("section", { staticClass: "padded" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "small teal dropdown actions button",
-                      attrs: { "data-toggle": "people-actions" }
-                    },
-                    [
-                      _vm._v("\n            Actions\n            "),
-                      _c("zf-dropdown", { attrs: { id: "people-actions" } }, [
-                        _c(
-                          "ul",
-                          [
-                            _c(
-                              "router-link",
-                              {
-                                attrs: { tag: "li", to: { name: "addPerson" } }
-                              },
-                              [
-                                _vm._v(
-                                  "\n                  Add\n                  "
-                                ),
-                                _c("i", { staticClass: "oa-plus" })
-                              ]
-                            )
-                          ],
-                          1
-                        )
-                      ])
-                    ],
-                    1
-                  )
-                ])
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _c("div", { staticClass: "panel" }, [
-            _vm._m(1),
-            _vm._v(" "),
-            !_vm.loading && _vm.people.length
-              ? _c(
-                  "table",
-                  { staticClass: "table table--list unstriped links" },
-                  [
-                    _vm._m(2),
-                    _vm._v(" "),
-                    _c(
-                      "tbody",
-                      _vm._l(_vm.people, function(person) {
-                        return _c(
-                          "router-link",
-                          {
-                            key: person.id,
-                            attrs: {
-                              tag: "tr",
-                              to: {
-                                name: "viewPerson",
-                                params: { id: person.id }
-                              }
-                            }
-                          },
-                          [
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(person.full_name)
-                              }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: { textContent: _vm._s(person.email) }
-                            }),
-                            _vm._v(" "),
-                            _c("td", {
-                              domProps: {
-                                textContent: _vm._s(person.direct_phone)
-                              }
-                            })
-                          ]
-                        )
-                      })
-                    )
-                  ]
-                )
-              : _vm._e(),
-            _vm._v(" "),
-            !_vm.loading && !_vm.people.length
-              ? _c("section", { staticClass: "padded" }, [_vm._m(3)])
-              : _vm._e()
-          ]),
-          _vm._v(" "),
-          _c("zf-pagination", {
-            attrs: { data: _vm.pagination },
-            on: { paginate: _vm.goToPage }
-          })
-        ],
-        1
-      )
-    ])
-  ])
-}
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("header", [
-      _c("div", { staticClass: "row column" }, [
-        _c("h5", [_vm._v("People")]),
-        _vm._v(" "),
-        _c("div", { staticClass: "main" }, [
-          _c("h1", [_vm._v("View All People")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "panel--header" }, [
-      _c("div", { staticClass: "title" }, [
-        _c("div", { staticClass: "heading" }, [
-          _c("i", { staticClass: "oa-profile" }),
-          _vm._v(" "),
-          _c("p", [_vm._v("People")])
-        ])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("thead", [
-      _c("tr", [
-        _c("th", [_vm._v("\n                Name\n              ")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("\n                Email\n              ")]),
-        _vm._v(" "),
-        _c("th", [_vm._v("\n                Phone\n              ")])
-      ])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "column row text-center" }, [
-      _c("h5", { staticClass: "text-white" }, [_vm._v("Nothing here...")])
-    ])
-  }
-]
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-1b94500c", module.exports)
-  }
-}
 
 /***/ })
 /******/ ]);
