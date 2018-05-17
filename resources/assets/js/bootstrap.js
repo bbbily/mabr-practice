@@ -25,6 +25,7 @@ window.axios = require('axios');
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 import Vue from 'vue';
+import Vuex from 'vuex';
 import VueRouter from 'vue-router';
 import VueAxios  from 'vue-axios';
 // import VueResource from 'vue-resource';
@@ -34,6 +35,7 @@ Vue.router = router;
 Vue.use(VueAxios, axios);
 // Vue.use(VueResource);
 Vue.use(VueRouter);
+Vue.use(Vuex);
 Vue.use(require('@websanova/vue-auth'), {
   auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
   http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),

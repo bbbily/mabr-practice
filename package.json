@@ -25,6 +25,7 @@
         "browser-sync-webpack-plugin": "^2.2.2",
         "select2": "^4.0.6-rc.1",
         "vue-axios": "^2.1.1",
-        "vue-router": "^3.0.1"
+        "vue-router": "^3.0.1",
+        "vuex": "^3.0.1"
     }
 }

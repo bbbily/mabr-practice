@@ -20,21 +20,12 @@ class CreatePeopleTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('title');
-            $table->unsignedInteger('role_id');
-            $table->foreign('role_id')
-                  ->references('id')
-                  ->on('roles')
-                  ->onDelete('cascade');
-            $table->unsignedInteger('department_id');
-            $table->foreign('department_id')
-                  ->references('id')
-                  ->on('departments')
-                  ->onDelete('cascade');
-            $table->unsignedInteger('location_id');
-            $table->foreign('location_id')
-                  ->references('id')
-                  ->on('locations')
-                  ->onDelete('cascade');
+            $table->integer('role_id')->unsigned()->nullable();
+
+            $table->integer('department_id')->unsigned()->nullable();
+
+            $table->integer('location_id')->unsigned()->nullable();
+
             $table->string('office')->nullable();
             $table->string('direct_phone')->nullable();
             $table->string('office_phone')->nullable();
@@ -48,6 +39,23 @@ class CreatePeopleTable extends Migration
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamps();
+        });
+
+        Schema::table('people', function (Blueprint $table) {
+          $table->foreign('location_id')
+                ->references('id')
+                ->on('locations')
+                ->onDelete('cascade');
+
+          $table->foreign('department_id')
+                ->references('id')
+                ->on('departments')
+                ->onDelete('cascade');
+
+          $table->foreign('role_id')
+                ->references('id')
+                ->on('roles')
+                ->onDelete('cascade');
         });
     }
 

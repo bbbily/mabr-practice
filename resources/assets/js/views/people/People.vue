@@ -9,20 +9,21 @@
       </div>
     </header>
 
+    
     <section class="list">
       <div class="row column">
         <div class="small-12 text-right" v-if="$auth.check('admin')">
           <section class="padded">
             <button class="small teal dropdown actions button" data-toggle="people-actions">
               Actions
-              <zf-dropdown id="people-actions">
+              <!-- <zf-dropdown id="people-actions">
                 <ul>
                   <router-link tag="li" :to="{name: 'addPerson'}">
                     Add
                     <i class="oa-plus"></i>
                   </router-link>
                 </ul>
-              </zf-dropdown>
+              </zf-dropdown> -->
             </button>
           </section>
         </div>
@@ -68,11 +69,11 @@
             </div>
           </section>
         </div>
-
+<!--
         <zf-pagination
         @paginate="goToPage"
         :data="pagination">
-        </zf-pagination>
+        </zf-pagination> -->
       </div>
     </section>
   </section>

@@ -25,7 +25,7 @@
       </a>
     </router-link>
 
-    {{-- <router-link tag="li" :to="{ name: 'clients' }">
+    <router-link tag="li" to="/clients">
       <a>
         <i class="oa-briefcase"></i>
         Clients
@@ -43,12 +43,12 @@
       </ul>
     </li>
 
-    <router-link tag="li" :to="{ name: 'documents' }">
+    <router-link tag="li" to="/documents">
       <a>
         <i class="oa-document"></i>
         Documents
       </a>
-    </router-link> --}}
+    </router-link>
 
     {{-- <li
     :class="{ 'is-active': isActiveRoute('resources') }"
