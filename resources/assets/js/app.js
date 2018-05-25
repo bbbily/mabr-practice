@@ -8,6 +8,8 @@
 import './bootstrap';
 import router from './router';
 import store from './store';
+import Sidebar from './components/Sidebar.vue';
+import Navbar from './components/Navbar.vue';
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -19,5 +21,9 @@ import store from './store';
 const app = new Vue({
     el: '#app',
     router,
-    store
+    store,
+    components: {
+      Sidebar,
+      Navbar
+    }
 });

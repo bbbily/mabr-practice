@@ -10,11 +10,12 @@
     </head>
     <body>
         <div id="app">
-            @include('components.navbar')
+            <navbar></navbar>
 
-            <main class="content">
+            <main class="content" v-if="$auth.ready()">
               <router-view></router-view>
             </main>
+            <sidebar></sidebar>
         </div>
         <script src="{{ mix('js/app.js') }}"></script>
     </body>

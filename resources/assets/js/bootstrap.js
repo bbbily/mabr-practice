@@ -20,9 +20,8 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
-
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+import axios from 'axios';
+axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -30,6 +29,17 @@ import VueRouter from 'vue-router';
 import VueAxios  from 'vue-axios';
 // import VueResource from 'vue-resource';
 import router from './router';
+
+// Setup the Base URL for all API requests
+let baseURL = `${location.protocol}//${location.hostname}`;
+
+// If there's a port (Browsersync) add it
+if (location.port) {
+  baseURL = baseURL + ':' + location.port;
+}
+
+// Set the Axios base URL
+axios.defaults.baseURL = `${baseURL}/api`;
 
 Vue.router = router;
 Vue.use(VueAxios, axios);
@@ -39,10 +49,13 @@ Vue.use(Vuex);
 Vue.use(require('@websanova/vue-auth'), {
   auth: require('@websanova/vue-auth/drivers/auth/bearer.js'),
   http: require('@websanova/vue-auth/drivers/http/axios.1.x.js'),
-  router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js')
+  router: require('@websanova/vue-auth/drivers/router/vue-router.2.x.js'),
+  parseUserData: function (data) {
+    return data;
+  },
 })
 
 // Vue.http.options.root = 'https://api-demo.websanova.com/api/v1';
-Vue.axios.defaults.baseURL = 'https://api-demo.websanova.com/api/v1';
+// Vue.axios.defaults.baseURL = 'https://api-demo.websanova.com/api/v1';
 
 window.Vue = Vue;
