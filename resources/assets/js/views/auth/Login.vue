@@ -7,6 +7,10 @@
       <input type="password" v-model="password">
       <input type="submit">
     </form>
+    <span
+        v-if="error"
+        v-text="error"
+        class="form-error is-visible form-error--info"></span>
   </section>
 </template>
 
@@ -15,20 +19,23 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      error: ''
     }
   },
 
   methods: {
     onSubmit() {
-      console.log(this.email, this.password)
       this.$auth.login({
         params: {
           email: this.email,
           password: this.password
         },
         success: function(res) {
-          console.log(res)
+        },
+        error: function(error) {
+          console.log(error.response.data)
+          this.error = error.response.data.error;
         },
         redirect: '/',
         fetchUser: true,

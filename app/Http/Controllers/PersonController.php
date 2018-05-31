@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Person;
+use App\Department;
 use Illuminate\Http\Request;
 
 class PersonController extends Controller
@@ -14,7 +15,9 @@ class PersonController extends Controller
      */
     public function index()
     {
-        //
+        $people = Person::orderBy('last_name')->paginate(5);
+
+        return response()->json($people, 200);
     }
 
     /**
@@ -46,7 +49,7 @@ class PersonController extends Controller
      */
     public function show(Person $person)
     {
-        //
+        return $person->load('tasks', 'role', 'department');
     }
 
     /**
@@ -57,7 +60,11 @@ class PersonController extends Controller
      */
     public function edit(Person $person)
     {
-        //
+        $departments = Department::all();
+        return response()->json([
+          'departments' => $departments,
+          'person' => $person
+        ], 200);
     }
 
     /**
@@ -69,7 +76,12 @@ class PersonController extends Controller
      */
     public function update(Request $request, Person $person)
     {
-        //
+        $person->update($request->except(['password']));
+        if ($request->password) {
+          $person->password = bcrypt($request->password);
+          $person->save();
+        }
+        return response()->json($person, 200);
     }
 
     /**
@@ -80,6 +92,7 @@ class PersonController extends Controller
      */
     public function destroy(Person $person)
     {
-        //
+        $person->delete();
+        return response()->json($person, 200);
     }
 }

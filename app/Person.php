@@ -10,9 +10,10 @@ class Person extends Authenticatable implements JWTSubject
 {
     use Notifiable;
 
-    protected $fillable = ['first_name', 'last_name', 'email', 'password', 'title'];
+    // protected $fillable = ['first_name', 'last_name', 'email', 'password', 'title'];
+    protected $guarded = [];
     // Rest omitted for brevity
-
+    protected $hidden = ['password'];
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
@@ -31,5 +32,17 @@ class Person extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function tasks() {
+      return $this->hasMany('App\Task');
+    }
+
+    public function role() {
+      return $this->belongsTo('App\Role');
+    }
+
+    public function department() {
+      return $this->belongsTo('App\Department');
     }
 }

@@ -19,6 +19,8 @@ $factory->define(App\Person::class, function (Faker $faker) {
         'last_name' => $faker->lastName,
         'email' => $faker->unique()->safeEmail,
         'title' => $faker->jobTitle,
+        'role_id' => $faker->numberBetween($min = 1, $max = 2),
+        'department_id' => $faker->numberBetween($min = 1, $max = 2),
         'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm'
     ];
 });

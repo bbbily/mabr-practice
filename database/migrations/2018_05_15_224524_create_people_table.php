@@ -21,11 +21,8 @@ class CreatePeopleTable extends Migration
             $table->string('password');
             $table->string('title');
             $table->integer('role_id')->unsigned()->nullable();
-
             $table->integer('department_id')->unsigned()->nullable();
-
             $table->integer('location_id')->unsigned()->nullable();
-
             $table->string('office')->nullable();
             $table->string('direct_phone')->nullable();
             $table->string('office_phone')->nullable();

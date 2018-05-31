@@ -9,7 +9,7 @@
       </div>
     </header>
 
-    
+
     <section class="list">
       <div class="row column">
         <div class="small-12 text-right" v-if="$auth.check('admin')">
@@ -36,7 +36,7 @@
               </div>
             </div>
           </div>
-          <table class="table table--list unstriped links" v-if="!loading && people.length">
+          <table class="table table--list unstriped links" v-if="people.length">
             <thead>
               <tr>
                 <th>
@@ -54,26 +54,24 @@
               <router-link
               v-for="person in people"
               tag="tr"
-              :to="{name: 'viewPerson', params: { id: person.id }}"
+              :to="`/people/${person.id}`"
               :key="person.id">
-                <td v-text="person.full_name"></td>
+                <td v-text="person.first_name"></td>
                 <td v-text="person.email"></td>
                 <td v-text="person.direct_phone"></td>
               </router-link>
             </tbody>
           </table>
 
-          <section class="padded" v-if="!loading && !people.length">
+          <!-- <section class="padded" v-if="!loading && !people.length">
             <div class="column row text-center">
               <h5 class="text-white">Nothing here...</h5>
             </div>
-          </section>
+          </section> -->
         </div>
-<!--
-        <zf-pagination
-        @paginate="goToPage"
-        :data="pagination">
-        </zf-pagination> -->
+        <ul>
+          <li v-for="i in pages" v-text="i" @click="goToPage(i)"></li>
+        </ul>
       </div>
     </section>
   </section>
@@ -84,25 +82,33 @@
     data() {
       return {
         people: [],
-        pagination: {},
+        pagination: {
+          total: 0,
+          per_page: 1
+        },
       }
     },
 
     computed: {
-      loading() {
-        return this.$store.state.loading;
+      pages() {
+        // if (this.pagination.hasOwnProperty('total')) {
+        // }
+        // else {
+        //   return 1;
+        // }
+        return Math.ceil(this.pagination.total / this.pagination.per_page);
       }
     },
 
     watch: {
-      '$route.query.page': function(page) {
-        this.getPeople(page);
+      '$route': function(to, from) {
+        this.getPeople(to.query.page);
+        console.log(to.query.page)
       }
     },
 
     methods: {
       getPeople(page) {
-        this.$store.commit('setLoading', true);
 
         this.$http.get('/people', {
           params: {
@@ -110,19 +116,27 @@
           }
         })
         .then(({data}) => {
-          this.$set(this, 'people', data.data);
-          this.pagination = data;
+          this.people = data.data;
+          for (var prop in data) {
+            if (prop !== 'data') {
+              this.pagination[prop] = data[prop];
+            }
+          }
+          console.log(this.pagination)
+          // this.$set(this, 'people', data.data);
+          // this.pagination = data;
         })
         .catch((err) => console.error(err))
-        .then(() => this.$store.commit('setLoading', false));
+        // .then(() => this.$store.commit('setLoading', false));
       },
 
       goToPage(page) {
-        this.$router.push({name: 'people', query: {page: page}})
+        this.$router.push({path: '/people', query: {page: page}})
       }
     },
     created() {
-      this.getPeople();
+      this.getPeople(this.$route.query.page);
+      console.log('created')
     },
     mounted() {}
   }

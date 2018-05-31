@@ -40,7 +40,9 @@ class LoginController extends Controller
      */
     public function me()
     {
-        return response()->json(auth()->user());
+        $user = auth()->user()->load('role');
+        $user->roles = [$user->role->name];
+        return response()->json($user);
     }
 
     /**

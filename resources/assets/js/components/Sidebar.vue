@@ -1,5 +1,5 @@
 <template lang="html">
-  <aside  v-if="$auth.ready()">
+  <aside  v-if="$auth.check()">
     <section class="info">
       <div class="person">
         <router-link tag="li" to="/people">
@@ -11,7 +11,10 @@
         <h4 v-text="$auth.user().first_name"></h4>
       </div>
       <div class="icons">
-
+        <ul>
+          <li><router-link :to="`/people/${$auth.user().id}`">View Profile</router-link></li>
+          <li><a @click="$auth.logout()">Log Out</a></li>
+        </ul>
       </div>
     </section>
 

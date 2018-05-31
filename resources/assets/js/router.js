@@ -20,6 +20,16 @@ let routes = [
     path: '/people',
     component: require('./views/people/People.vue')
   },
+  {
+    path: '/people/:id',
+    component: require('./views/people/ViewPerson.vue'),
+    props: true
+  },
+  {
+    path: '/people/:id/edit',
+    component: require('./views/people/EditPerson.vue'),
+    props: true
+  },
 ];
 
 export default new VueRouter({

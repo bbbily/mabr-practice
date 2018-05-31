@@ -30,3 +30,13 @@ Route::group([
     Route::get('user', 'Auth\LoginController@me');
 
 });
+
+Route::group([
+
+    'middleware' => 'api',
+
+], function ($router) {
+
+    Route::resource('people', 'PersonController');
+
+});
