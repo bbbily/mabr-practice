@@ -15,7 +15,7 @@
         <div class="small-12 text-right" v-if="$auth.check('admin')">
           <section class="padded">
             <button class="small teal dropdown actions button" data-toggle="people-actions">
-              Actions
+              add person
               <!-- <zf-dropdown id="people-actions">
                 <ul>
                   <router-link tag="li" :to="{name: 'addPerson'}">
@@ -84,7 +84,7 @@
         people: [],
         pagination: {
           total: 0,
-          per_page: 1
+          perPage: 5
         },
       }
     },
@@ -96,7 +96,7 @@
         // else {
         //   return 1;
         // }
-        return Math.ceil(this.pagination.total / this.pagination.per_page);
+        return Math.ceil(this.pagination.total / this.pagination.perPage);
       }
     },
 
@@ -108,9 +108,9 @@
     },
 
     methods: {
-      getPeople(page) {
+      getPeople(page = 1) {
 
-        this.$http.get('/people', {
+        this.axios.get('/people', {
           params: {
             page: page,
           }
@@ -122,7 +122,6 @@
               this.pagination[prop] = data[prop];
             }
           }
-          console.log(this.pagination)
           // this.$set(this, 'people', data.data);
           // this.pagination = data;
         })

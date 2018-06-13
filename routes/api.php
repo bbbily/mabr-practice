@@ -38,5 +38,6 @@ Route::group([
 ], function ($router) {
 
     Route::resource('people', 'PersonController');
-
+    Route::post('people/{person}/image', 'PersonController@updateImage');
+    Route::resource('tasks', 'TaskController');
 });

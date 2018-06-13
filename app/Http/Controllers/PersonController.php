@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Person;
 use App\Department;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PersonController extends Controller
 {
@@ -83,6 +84,28 @@ class PersonController extends Controller
         }
         return response()->json($person, 200);
     }
+
+
+    /**
+     * Update the person image resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Person  $person
+     * @return \Illuminate\Http\Response
+     */
+    public function updateImage(Request $request, Person $person)
+    {
+        if ($person->image) {
+            Storage::disk('public')
+                ->delete($person->image);
+        }
+        $path = $request->file('image')->store('public/people');
+        $person->image = str_replace("public/", '', $path);
+        $person->save();
+        return response()->json($person, 200);
+    }
+
+
 
     /**
      * Remove the specified resource from storage.

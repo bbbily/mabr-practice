@@ -44,10 +44,10 @@
         </ul>
       </li>
 
-      <router-link tag="li" to="/documents">
+      <router-link tag="li" to="/resources/news/create">
         <a>
           <i class="oa-document"></i>
-          Documents
+          Resources
         </a>
       </router-link>
 

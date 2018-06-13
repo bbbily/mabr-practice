@@ -30,6 +30,11 @@ let routes = [
     component: require('./views/people/EditPerson.vue'),
     props: true
   },
+  {
+    path: '/resources/news/create',
+    component: require('./views/resources/news/AddNew.vue'),
+    props: true
+  },
 ];
 
 export default new VueRouter({

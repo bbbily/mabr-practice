@@ -15,8 +15,8 @@
       </ul>
     </div>
 
-    <div class="edit" v-if="$auth.check('admin') || $auth.user().id === this.id">
-      <router-link :to="`/people/${this.id}/edit`">Edit</router-link>
+    <div class="edit" v-if="$auth.check('admin') || $auth.user().id === id * 1">
+      <router-link :to="`/people/${id}/edit`">Edit</router-link>
     </div>
   </section>
 </template>
